@@ -81,12 +81,6 @@ class RigBox(QtWidgets.QDialog):
             ui.deleteLater()
         except:
             pass
-    
         ui = RigBox()
         ui.show()     
-        
-if __name__ == "__main__":
-    ui = RigBox()
-    ui.load_window()
-
-        
+    
