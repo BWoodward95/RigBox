@@ -7,9 +7,7 @@ To-Do:
 """
 
 from PySide2 import QtCore, QtGui, QtWidgets
-from shiboken2 import wrapInstance
 
-import maya.OpenMayaUI as omui
 import maya.cmds as cmds
 
 from rigbox import createskeleton
@@ -37,7 +35,7 @@ class RigBox(QtWidgets.QDialog):
         self.setWindowTitle("RigBox v2.0")
         self.setMinimumSize(300, 100)
         
-        self.skeleton_creator = createskeleton.CreateBaseSkeleton()
+        self.create_skeleton = createskeleton.CreateBaseSkeleton()
         
         self.createWidgets()
         self.createLayout()
@@ -64,27 +62,31 @@ class RigBox(QtWidgets.QDialog):
         self.setup_deformSystem_btn.clicked.connect(self.create_deform)
    
     def import_skeleton(self):
-        self.skeleton_creator.create_root()
-        self.skeleton_creator.create_spine()
-        self.skeleton_creator.create_neck()
-        self.skeleton_creator.create_leftLeg()
-        self.skeleton_creator.create_rightLeg()
-        self.skeleton_creator.create_leftArm(hand=True)
-        self.skeleton_creator.create_rightArm(hand=True)
-        self.skeleton_creator.finalize()
+        self.create_skeleton.create_root()
+        self.create_skeleton.create_spine()
+        self.create_skeleton.create_neck()
+        self.create_skeleton.create_leftLeg()
+        self.create_skeleton.create_rightLeg()
+        self.create_skeleton.create_leftArm(hand=True)
+        self.create_skeleton.create_rightArm(hand=True)
+        self.create_skeleton.finalize()
   
     def create_deform(self):
-        self.skeleton_creator.apply_roll_jnts(mirror=True)
-        self.skeleton_creator.setup_roll_sys(mirror=True)
+        self.create_skeleton.apply_roll_jnts(mirror=True)
+        self.create_skeleton.setup_roll_sys(mirror=True)
+    
+    def load_window(self):
+        try:
+            ui.close()
+            ui.deleteLater()
+        except:
+            pass
+    
+        ui = RigBox()
+        ui.show()     
         
 if __name__ == "__main__":
-    
-    try:
-        RigBox.close()
-        RigBox.deleteLater()
-    except:
-        pass
-    
-    RigBox = RigBox()
-    RigBox.show()    
+    ui = RigBox()
+    ui.load_window()
+
         
