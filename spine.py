@@ -24,10 +24,10 @@ class ImportSpine():
         self.spine1 = cmds.createNode("joint", n=labels.JNT[3] + labels.SIDE[0] + labels.SUF[0]) #              |
         self.spine2 = cmds.createNode("joint", n=labels.JNT[4] + labels.SIDE[0] + labels.SUF[0]) #              V
        
-        cmds.xform(self.hips, ws=True, t=(0,100,0))   # Place Joints
-        cmds.xform(self.spine, ws=True, t=(0,107,0))  #             |
-        cmds.xform(self.spine1, ws=True, t=(0,120,0)) #             |
-        cmds.xform(self.spine2, ws=True, t=(0,132,0)) #             V
+        cmds.xform(self.hips, ws=True, t=self.hips_pos)     # Place Joints
+        cmds.xform(self.spine, ws=True, t=self.spine_pos)   #             |
+        cmds.xform(self.spine1, ws=True, t=self.spine1_pos) #             |
+        cmds.xform(self.spine2, ws=True, t=self.spine2_pos) #             V
         
         spine_list.append(self.hips)   # Append to list
         spine_list.append(self.spine)  #               |
