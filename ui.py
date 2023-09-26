@@ -2,6 +2,7 @@
 RigBox 2.0
 
 To-Do:
+    Replace QDialog with QMainWindow
     Connect Curve Library
     Connect Movement System
 """
