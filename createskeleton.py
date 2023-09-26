@@ -5,12 +5,15 @@ Connect to RigBox_Main Module
 by Broderick Woodward-Crackower
 
 To-Do:
+    Convert joint position coordinates to variables
     Generate Shoulder and Hip rolls
     Add parameters for single/double roll joints per-limb
     Add COG joint
 '''  
 
 import maya.cmds as cmds
+
+from rigbox import tools
 
 class CreateBaseSkeleton(object):
     
@@ -72,79 +75,7 @@ class CreateBaseSkeleton(object):
         self.upperArm_R = None
         self.lowerArm_R = None
         self.wrist_R = None
-            
-    @staticmethod
-    def query_location(name):
-        result = cmds.xform(name, q=True, t=True)
-            
-        return result
-        
-    @staticmethod
-    def query_rotation(name):
-        result = cmds.xform(name, q=True, ws=True, ro=True)
-            
-        return result
-        
-    @staticmethod
-    def average_location(primaryAxis, lastJoint):
-        lastJoint_pos = cmds.xform(lastJoint, q=True, t=True)
-        
-        if primaryAxis == "X":
-            result = lastJoint_pos[0]/2 
-            finalResult = (result, 0,0)     
-        if primaryAxis == "Y":
-            result = lastJoint_pos[1]/2
-            finalResult = (0,result,0)        
-        if primaryAxis == "Z":
-            result = lastJoint_pos[2]/2
-            finalResult = (0,0,result)
-            
-        if primaryAxis == "-X":
-            result = lastJoint_pos[0]/2 
-            finalResult = ((result*-1), 0,0)     
-        if primaryAxis == "-Y":
-            result = lastJoint_pos[1]/2
-            finalResult = (0,(result*-1),0)        
-        if primaryAxis == "-Z":
-            result = lastJoint_pos[2]/2
-            finalResult = (0,0,(result*-1))            
-            
-        return finalResult
-        
-    @staticmethod    
-    def create_joint_chain(primaryAxis, upAxis, jointList):
-        if primaryAxis == "X":
-            aim = (1,0,0)            
-        if primaryAxis == "Y":
-            aim = (0,1,0)
-        if primaryAxis == "Z":
-            aim = (0,0,1)
-        if primaryAxis == "-X":
-            aim = (-1,0,0)
-        if primaryAxis == "-Y":
-            aim = (0,-1,0)
-        if primaryAxis == "-Z":
-            aim = (0,0,-1)
-        
-        if upAxis == "X":
-            up = (1,0,0)
-        if upAxis == "Y":
-            up = (0,1,0)
-        if upAxis == "Z":
-            up = (0,0,1)
-        if upAxis == "-X":
-            up = (-1,0,0)
-        if upAxis == "-Y":
-            up = (0,-1,0)
-        if upAxis == "-Z":
-            up = (0,0,-1)
-        
-        for i in range(len(jointList)-1):
-            aim_joint = cmds.aimConstraint(jointList[i+1], jointList[i], aim=aim, wu=up) # Aim parent at child (X-forward, Z-up)
-            cmds.delete(aim_joint) # Delete aim constraint
-            cmds.makeIdentity(apply=True, r=True) # Zero joint rotations
-            cmds.parent(jointList[i+1], jointList[i]) # Make parent relationship
-            
+                  
     def create_root(self):
         self.root = cmds.createNode("joint", n=self.JNT[0] + self.SUF[0]) # Create root node at world origin
             
@@ -166,7 +97,7 @@ class CreateBaseSkeleton(object):
         spine_list.append(self.spine1) #               |
         spine_list.append(self.spine2) #               V
         
-        self.create_joint_chain("X", "Y", spine_list) # Create chain
+        tools.create_joint_chain("X", "Y", spine_list) # Create chain
         
         cmds.parent(self.hips, self.root) # Attach to Root
         
@@ -190,7 +121,7 @@ class CreateBaseSkeleton(object):
         neck_list.append(self.head)    #
         neck_list.append(self.headEnd) #
         
-        self.create_joint_chain("X", "Y",  neck_list) # Create chain
+        tools.create_joint_chain("X", "Y",  neck_list) # Create chain
         
         cmds.parent(self.neck, self.spine2) # Attach to Spine2
         
@@ -217,7 +148,7 @@ class CreateBaseSkeleton(object):
         leg_list.append(self.toe_L)
         leg_list.append(self.toeEnd_L)
         
-        self.create_joint_chain("X", "Z", leg_list)
+        tools.create_joint_chain("X", "Z", leg_list)
     
         cmds.parent(self.upperLeg_L, self.hips)
                         
@@ -244,7 +175,7 @@ class CreateBaseSkeleton(object):
         leg_list.append(self.toe_R)
         leg_list.append(self.toeEnd_R)
             
-        self.create_joint_chain("-X", "-Z", leg_list)
+        tools.create_joint_chain("-X", "-Z", leg_list)
     
         cmds.parent(self.upperLeg_R, self.hips)
                         
@@ -268,9 +199,9 @@ class CreateBaseSkeleton(object):
         arm_list.append(self.lowerArm_L)
         arm_list.append(self.wrist_L)
         
-        self.create_joint_chain("X", "Y", arm_list)
+        tools.create_joint_chain("X", "Y", arm_list)
         
-        lowerArm_rot = self.query_rotation(self.lowerArm_L)
+        lowerArm_rot = tools.query_rotation(self.lowerArm_L)
         cmds.xform(self.wrist_L, ro=lowerArm_rot)        
         
         if hand:
@@ -298,9 +229,9 @@ class CreateBaseSkeleton(object):
         arm_list.append(self.lowerArm_R)
         arm_list.append(self.wrist_R)
         
-        self.create_joint_chain("-X", "-Y", arm_list)
+        tools.create_joint_chain("-X", "-Y", arm_list)
         
-        lowerArm_rot = self.query_rotation(self.lowerArm_R)
+        lowerArm_rot = tools.query_rotation(self.lowerArm_R)
         cmds.xform(self.wrist_R, ro=lowerArm_rot)        
         
         if hand:
@@ -397,11 +328,11 @@ class CreateBaseSkeleton(object):
         thumb_list.append(self.thumb2_L)
         thumb_list.append(self.thumbEnd_L)
         
-        self.create_joint_chain("X", "Y", index_list)
-        self.create_joint_chain("X", "Y", middle_list)
-        self.create_joint_chain("X", "Y", ring_list)
-        self.create_joint_chain("X", "Y", pinky_list)
-        self.create_joint_chain("X", "Y", thumb_list)
+        tools.create_joint_chain("X", "Y", index_list)
+        tools.create_joint_chain("X", "Y", middle_list)
+        tools.create_joint_chain("X", "Y", ring_list)
+        tools.create_joint_chain("X", "Y", pinky_list)
+        tools.create_joint_chain("X", "Y", thumb_list)
         
         cmds.parent(self.index_L, self.middle_L, self.ring_L, self.pinky_L, self.thumb_L, self.wrist_L)
         
@@ -498,11 +429,11 @@ class CreateBaseSkeleton(object):
         thumb_list.append(self.thumb2_R)
         thumb_list.append(self.thumbEnd_R)
         
-        self.create_joint_chain("-X", "-Y", index_list)
-        self.create_joint_chain("-X", "-Y", middle_list)
-        self.create_joint_chain("-X", "-Y", ring_list)
-        self.create_joint_chain("-X", "-Y", pinky_list)
-        self.create_joint_chain("-X", "-Y", thumb_list)
+        tools.create_joint_chain("-X", "-Y", index_list)
+        tools.create_joint_chain("-X", "-Y", middle_list)
+        tools.create_joint_chain("-X", "-Y", ring_list)
+        tools.create_joint_chain("-X", "-Y", pinky_list)
+        tools.create_joint_chain("-X", "-Y", thumb_list)
         
         cmds.parent(self.index_R, self.middle_R, self.ring_R, self.pinky_R, self.thumb_R, self.wrist_R)
         
@@ -527,7 +458,7 @@ class CreateBaseSkeleton(object):
         cmds.select(first)
         self.roll_jnt = cmds.joint(n=name)
 
-        self.roll_jnt_pos = self.average_location("X", last)
+        self.roll_jnt_pos = tools.average_location("X", last)
                         
         cmds.xform(self.roll_jnt, t=self.roll_jnt_pos)
         
@@ -611,7 +542,6 @@ class CreateBaseSkeleton(object):
                        
 if __name__ == "__main__":
     bskel = CreateBaseSkeleton()
-    defSys  = CreateDeformSystem()
     bskel.main()
                 
         
