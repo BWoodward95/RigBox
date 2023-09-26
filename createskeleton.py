@@ -75,6 +75,80 @@ class CreateBaseSkeleton(object):
         self.upperArm_R = None
         self.lowerArm_R = None
         self.wrist_R = None
+        
+        self.index_L = None
+        self.index2_L = None
+        self.index3_L = None
+        self.indexEnd_L = None
+        
+        self.middle_L = None
+        self.middle2_L = None
+        self.middle3_L = None
+        self.middleEnd_L = None
+        
+        self.ring_L = None
+        self.ring2_L = None
+        self.ring3_L = None
+        self.ringEnd_L = None
+        
+        self.pinky_L = None
+        self.pinky2_L = None
+        self.pinky3_L = None
+        self.pinkyEnd_L = None
+        
+        self.thumb_L = None
+        self.thumb2_L = None
+        self.thumb3_L = None
+        self.thumbEnd_L = None
+        
+        self.index_R = None
+        self.index2_R = None
+        self.index3_R = None
+        self.indexEnd_R = None
+        
+        self.middle_R = None
+        self.middle2_R = None
+        self.middle3_R = None
+        self.middleEnd_R = None
+        
+        self.ring_R = None
+        self.ring2_R = None
+        self.ring3_R = None
+        self.ringEnd_R = None
+        
+        self.pinky_R = None
+        self.pinky2_R = None
+        self.pinky3_R = None
+        self.pinkyEnd_R = None
+        
+        self.thumb_R = None
+        self.thumb2_R = None
+        self.thumb3_R = None
+        self.thumbEnd_R = None
+        
+        # Joint Initialization Variables
+        self.root_pos = (0,0,0)
+        
+        self.hips_pos = (0,100,0)
+        self.spine_pos = (0,107,0)
+        self.spine1_pos = (0,120,0)
+        self.spine2_pos = (0,132,0)
+        
+        self.neck_pos = (0,145,0)
+        self.neck1_pos = (0,155,0)
+        self.head_pos = (0,165,0)
+        self.headEnd_pos = (0,175,0)
+        
+        self.upperLeg_L_pos = (9,94,0)
+        self.lowerLeg_L_pos = (9,49,0)
+        self.foot_L_pos = (9,8,0)
+        self.toe_L_pos = (9,2,13)
+        self.toeEnd_L_pos = (9,2,20)
+ 
+        self.clavicle_L_pos = (7,147,0)
+        self.upperArm_L_pos = (17,147,0)
+        self.lowerArm_L_pos = (45,147,0)
+        self.wrist_L_pos = (72,147,0)
                   
     def create_root(self):
         self.root = cmds.createNode("joint", n=self.JNT[0] + self.SUF[0]) # Create root node at world origin
