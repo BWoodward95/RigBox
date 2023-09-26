@@ -12,20 +12,15 @@ from shiboken2 import wrapInstance
 import maya.OpenMayaUI as omui
 import maya.cmds as cmds
 
-import RigBox_BaseSkeleton as rbbs
+from rigbox import createskeleton
 
-def maya_main_window():
-    """
-    Return the Maya main window widget as a Python object
-    """
-    main_window_ptr = omui.MQtUtil.mainWindow()
-    return wrapInstance(int(main_window_ptr), QtWidgets.QWidget)
+def getMayaMainWindow():
+    return [obj for obj in QtWidgets.QApplication.topLevelWidgets() if obj.objectName() == 'MayaWindow'][0]    
     
 class RigBox(QtWidgets.QDialog):
     
     dlg_instance=None
     
-    create_skeleton = rbbs.CreateBaseSkeleton()   
     @classmethod
     def show_dialog(cls):
         if not cls.dlg_instance:
@@ -37,12 +32,12 @@ class RigBox(QtWidgets.QDialog):
             cls.dlg_instance.raise_()
             cls.dlg_instance.activateWindow()
             
-    def __init__(self, parent=maya_main_window()):
-        super(RigBox, self).__init__(parent)
+    def __init__(self, parent=None):
+        super(RigBox, self).__init__(parent or getMayaMainWindow())
         self.setWindowTitle("RigBox v2.0")
         self.setMinimumSize(300, 100)
         
-        self.skeleton_creator = rbbs.CreateBaseSkeleton()
+        self.skeleton_creator = createskeleton.CreateBaseSkeleton()
         
         self.createWidgets()
         self.createLayout()
@@ -67,6 +62,7 @@ class RigBox(QtWidgets.QDialog):
     def createConnections(self):
         self.importSkeleton_btn.clicked.connect(self.import_skeleton)
         self.setup_deformSystem_btn.clicked.connect(self.create_deform)
+   
     def import_skeleton(self):
         self.skeleton_creator.create_root()
         self.skeleton_creator.create_spine()
