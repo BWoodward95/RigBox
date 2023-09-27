@@ -22,7 +22,7 @@ class RollSystem():
         return self.roll_jnt    
         
     def apply_roll_jnts(self, mirror=False):
-        self.upperLeg_roll_L = self.create_roll_jnt(f"{labels.JNT[33]}labels{labels[1]}{labels.SUF[0]}", self.importlegs.upperLeg_L, self.create_skeleton.lowerLeg_L)
+        self.upperLeg_roll_L = self.create_roll_jnt(f"{labels.JNT[33]}labels{labels[1]}{labels.SUF[0]}", self.importlegs.upperLeg_L, self.importlegs.lowerLeg_L)
              
         self.lowerLeg_roll_L = self.create_roll_jnt(f"{labels.JNT[34]}_roll{labels.SIDE[1]}{labels.SUF[0]}", self.importlegs.lowerLeg_L, self.create_skeleton.foot_L)
         

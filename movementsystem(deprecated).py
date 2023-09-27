@@ -11,7 +11,6 @@ To-Do:
     
 '''    
 import maya.cmds as cmds
-import maya.api.OpenMaya as om
 
 class MovementSystem():
     
@@ -56,36 +55,6 @@ class IKFK_System():
         
         if polevector == True:
             self.pole_vector(name, distance = 0)
-        
-    def pole_vector(self, name, distance):
-        start = cmds.xform( self.selection[0], q=True, ws=True, t=True)
-        mid = cmds.xform( self.selection[1], q=True, ws=True, t=True)
-        end = cmds.xform( self.selection[2], q=True, ws=True, t=True)
-
-        startV = om.MVector(start[0], start[1], start[2])
-        midV = om.MVector(mid[0], mid[1], mid[2])
-        endV = om.MVector(end[0], end[1], end[2])
-
-        startEnd = endV - startV
-        startMid = midV - startV
-
-        dotP = startMid * startEnd
-
-        proj = float(dotP) / float(startEnd.length())
-
-        startEndN = startEnd.normal()
-
-        projV = startEnd * proj
-
-        arrowV = startMid - projV
-        arrowV *= 0
-
-        finalV = arrowV + midV
-
-        loc = cmds.spaceLocator()[0]
-
-        cmds.xform(loc, ws=True, t=(finalV.x, finalV.y, finalV.z))
-        cmds.rename(loc, f"{name}_poleVector1")
             
     def createSwitch(self, name):
         for joint in self.selection:

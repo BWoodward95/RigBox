@@ -4,6 +4,7 @@ RigBox Tools
 '''
 
 import maya.cmds as cmds
+import maya.api.OpenMaya as om
 
 def query_location(name):
     result = cmds.xform(name, q=True, t=True)
@@ -72,3 +73,33 @@ def create_joint_chain(primaryAxis, upAxis, jointList):
         cmds.delete(aim_joint) # Delete aim constraint
         cmds.makeIdentity(apply=True, r=True) # Zero joint rotations
         cmds.parent(jointList[i+1], jointList[i]) # Make parent relationship
+        
+    def pole_vector(startJoint, midJoint, endJoint, name, distance):
+        start = cmds.xform(start, q=True, ws=True, t=True)
+        mid = cmds.xform(mid, q=True, ws=True, t=True)
+        end = cmds.xform(end, q=True, ws=True, t=True)
+
+        startV = om.MVector(start[0], start[1], start[2])
+        midV = om.MVector(mid[0], mid[1], mid[2])
+        endV = om.MVector(end[0], end[1], end[2])
+
+        startEnd = endV - startV
+        startMid = midV - startV
+
+        dotP = startMid * startEnd
+
+        proj = float(dotP) / float(startEnd.length())
+
+        startEndN = startEnd.normal()
+
+        projV = startEnd * proj
+
+        arrowV = startMid - projV
+        arrowV *= 0
+
+        finalV = arrowV + midV
+
+        loc = cmds.spaceLocator()[0]
+
+        cmds.xform(loc, ws=True, t=(finalV.x, finalV.y, finalV.z))
+        cmds.rename(loc, f"{name}_poleVector1")    
