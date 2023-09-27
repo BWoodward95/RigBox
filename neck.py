@@ -5,12 +5,13 @@ from rigbox import tools, labels, spine
 class ImportNeck():
     
     def __init__(self):
-
+        # Declare variables
         self.neck = None
         self.neck1 = None
         self.head = None
         self.headEnd = None
         
+        # Initialize joint positions
         self.neck_pos = (0,145,0)
         self.neck1_pos = (0,155,0)
         self.head_pos = (0,165,0)
@@ -36,6 +37,4 @@ class ImportNeck():
         
         tools.create_joint_chain("X", "Y",  neck_list) # Create chain
         
-        # cmds.parent(self.neck, spine.spine2) # Attach to Spine2
-        
-        labels.deformJoint_list.extend(neck_list) # Add to the basket
+        labels.deformJoint_list.extend(neck_list) # Add to selection set

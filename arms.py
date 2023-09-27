@@ -5,7 +5,7 @@ from rigbox import tools, labels, spine, hands
 class ImportArms():
     
     def __init__(self):
-        
+        # Declare variables
         self.clavicle_L = None
         self.upperArm_L = None
         self.lowerArm_L = None
@@ -16,6 +16,7 @@ class ImportArms():
         self.lowerArm_R = None
         self.wrist_R = None
         
+        # Initialize joint positions
         self.clavicle_L_pos = (7,147,0)
         self.upperArm_L_pos = (17,147,0)
         self.lowerArm_L_pos = (45,147,0)
