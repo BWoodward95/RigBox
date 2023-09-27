@@ -64,10 +64,10 @@ class ImportHands():
         thumb_list = []
         
         # Index Finger
-        self.index_L = cmds.createNode("joint", n=labels.JNT[17] + self.SIDE[1] + self.SUF[0])
-        self.index1_L = cmds.createNode("joint", n=self.JNT[18] + self.SIDE[1] + self.SUF[0])
-        self.index2_L = cmds.createNode("joint", n=self.JNT[19] + self.SIDE[1] + self.SUF[0])
-        self.indexEnd_L = cmds.createNode("joint", n=self.JNT[20] + self.SIDE[1] + self.SUF[0])
+        self.index_L = cmds.createNode("joint", n=labels.JNT[17] + labels.SIDE[1] + labels.SUF[0])
+        self.index1_L = cmds.createNode("joint", n=labels.JNT[18] + labels.SIDE[1] + labels.SUF[0])
+        self.index2_L = cmds.createNode("joint", n=labels.JNT[19] + labels.SIDE[1] + labels.SUF[0])
+        self.indexEnd_L = cmds.createNode("joint", n=labels.JNT[20] + labels.SIDE[1] + labels.SUF[0])
         
         cmds.xform(self.index_L, ws=True, t=(80,147,3))
         cmds.xform(self.index1_L, ws=True, t=(85,147,3))
@@ -80,10 +80,10 @@ class ImportHands():
         index_list.append(self.indexEnd_L)
         
         # Middle Finger
-        self.middle_L = cmds.createNode("joint", n=self.JNT[21] + self.SIDE[1] + self.SUF[0])
-        self.middle1_L = cmds.createNode("joint", n=self.JNT[22] + self.SIDE[1] + self.SUF[0])
-        self.middle2_L = cmds.createNode("joint", n=self.JNT[23] + self.SIDE[1] + self.SUF[0])
-        self.middleEnd_L = cmds.createNode("joint", n=self.JNT[24] + self.SIDE[1] + self.SUF[0])
+        self.middle_L = cmds.createNode("joint", n=labels.JNT[21] + labels.SIDE[1] + labels.SUF[0])
+        self.middle1_L = cmds.createNode("joint", n=labels.JNT[22] + labels.SIDE[1] + labels.SUF[0])
+        self.middle2_L = cmds.createNode("joint", n=labels.JNT[23] + labels.SIDE[1] + labels.SUF[0])
+        self.middleEnd_L = cmds.createNode("joint", n=labels.JNT[24] + labels.SIDE[1] + labels.SUF[0])
         
         cmds.xform(self.middle_L, ws=True, t=(80,147,1))
         cmds.xform(self.middle1_L, ws=True, t=(85,147,1))
@@ -96,10 +96,10 @@ class ImportHands():
         middle_list.append(self.middleEnd_L)
         
         # Ring Finger
-        self.ring_L = cmds.createNode("joint", n=self.JNT[25] + self.SIDE[1] + self.SUF[0])
-        self.ring1_L = cmds.createNode("joint", n=self.JNT[26] + self.SIDE[1] + self.SUF[0])
-        self.ring2_L = cmds.createNode("joint", n=self.JNT[27] + self.SIDE[1] + self.SUF[0])
-        self.ringEnd_L = cmds.createNode("joint", n=self.JNT[28] + self.SIDE[1] + self.SUF[0])
+        self.ring_L = cmds.createNode("joint", n=labels.JNT[25] + labels.SIDE[1] + labels.SUF[0])
+        self.ring1_L = cmds.createNode("joint", n=labels.JNT[26] + labels.SIDE[1] + labels.SUF[0])
+        self.ring2_L = cmds.createNode("joint", n=labels.JNT[27] + labels.SIDE[1] + labels.SUF[0])
+        self.ringEnd_L = cmds.createNode("joint", n=labels.JNT[28] + labels.SIDE[1] + labels.SUF[0])
         
         cmds.xform(self.ring_L, ws=True, t=(80,147,-1))
         cmds.xform(self.ring1_L, ws=True, t=(85,147,-1))
@@ -112,10 +112,10 @@ class ImportHands():
         ring_list.append(self.ringEnd_L)
         
         # Pinky Finger
-        self.pinky_L = cmds.createNode("joint", n=self.JNT[29] + self.SIDE[1] + self.SUF[0])
-        self.pinky1_L = cmds.createNode("joint", n=self.JNT[30] + self.SIDE[1] + self.SUF[0])
-        self.pinky2_L = cmds.createNode("joint", n=self.JNT[31] + self.SIDE[1] + self.SUF[0])
-        self.pinkyEnd_L = cmds.createNode("joint", n=self.JNT[32] + self.SIDE[1] + self.SUF[0])
+        self.pinky_L = cmds.createNode("joint", n=labels.JNT[29] + labels.SIDE[1] + labels.SUF[0])
+        self.pinky1_L = cmds.createNode("joint", n=labels.JNT[30] + labels.SIDE[1] + labels.SUF[0])
+        self.pinky2_L = cmds.createNode("joint", n=labels.JNT[31] + labels.SIDE[1] + labels.SUF[0])
+        self.pinkyEnd_L = cmds.createNode("joint", n=labels.JNT[32] + labels.SIDE[1] + labels.SUF[0])
         
         cmds.xform(self.pinky_L, ws=True, t=(80,147,-3))
         cmds.xform(self.pinky1_L, ws=True, t=(85,147,-3))
@@ -128,10 +128,10 @@ class ImportHands():
         pinky_list.append(self.pinkyEnd_L)
         
         # Thumb
-        self.thumb_L = cmds.createNode("joint", n=self.JNT[13] + self.SIDE[1] + self.SUF[0])
-        self.thumb1_L = cmds.createNode("joint", n=self.JNT[14] + self.SIDE[1] + self.SUF[0])
-        self.thumb2_L = cmds.createNode("joint", n=self.JNT[15] + self.SIDE[1] + self.SUF[0])
-        self.thumbEnd_L = cmds.createNode("joint", n=self.JNT[16] + self.SIDE[1] + self.SUF[0])
+        self.thumb_L = cmds.createNode("joint", n=labels.JNT[13] + labels.SIDE[1] + labels.SUF[0])
+        self.thumb1_L = cmds.createNode("joint", n=labels.JNT[14] + labels.SIDE[1] + labels.SUF[0])
+        self.thumb2_L = cmds.createNode("joint", n=labels.JNT[15] + labels.SIDE[1] + labels.SUF[0])
+        self.thumbEnd_L = cmds.createNode("joint", n=labels.JNT[16] + labels.SIDE[1] + labels.SUF[0])
         
         cmds.xform(self.thumb_L, ws=True, t=(76,145,4))
         cmds.xform(self.thumb1_L, ws=True, t=(78,145,5))
@@ -151,11 +151,11 @@ class ImportHands():
         
         cmds.parent(self.index_L, self.middle_L, self.ring_L, self.pinky_L, self.thumb_L, self.wrist_L)
         
-        self.deformJoint_list.extend(index_list)
-        self.deformJoint_list.extend(middle_list)
-        self.deformJoint_list.extend(ring_list)
-        self.deformJoint_list.extend(pinky_list)
-        self.deformJoint_list.extend(thumb_list)
+        labels.deformJoint_list.extend(index_list)
+        labels.deformJoint_list.extend(middle_list)
+        labels.deformJoint_list.extend(ring_list)
+        labels.deformJoint_list.extend(pinky_list)
+        labels.deformJoint_list.extend(thumb_list)
         
     def create_rightHand(self):
         index_list = []
@@ -165,10 +165,10 @@ class ImportHands():
         thumb_list = []
         
         # Index Finger
-        self.index_R = cmds.createNode("joint", n=self.JNT[17] + self.SIDE[2] + self.SUF[0])
-        self.index1_R = cmds.createNode("joint", n=self.JNT[18] + self.SIDE[2] + self.SUF[0])
-        self.index2_R = cmds.createNode("joint", n=self.JNT[19] + self.SIDE[2] + self.SUF[0])
-        self.indexEnd_R = cmds.createNode("joint", n=self.JNT[20] + self.SIDE[2] + self.SUF[0])
+        self.index_R = cmds.createNode("joint", n=labels.JNT[17] + labels.SIDE[2] + labels.SUF[0])
+        self.index1_R = cmds.createNode("joint", n=labels.JNT[18] + labels.SIDE[2] + labels.SUF[0])
+        self.index2_R = cmds.createNode("joint", n=labels.JNT[19] + labels.SIDE[2] + labels.SUF[0])
+        self.indexEnd_R = cmds.createNode("joint", n=labels.JNT[20] + labels.SIDE[2] + labels.SUF[0])
         
         cmds.xform(self.index_R, ws=True, t=(-80,147,3))
         cmds.xform(self.index1_R, ws=True, t=(-85,147,3))
@@ -181,10 +181,10 @@ class ImportHands():
         index_list.append(self.indexEnd_R)
         
         # Middle Finger
-        self.middle_R = cmds.createNode("joint", n=self.JNT[21] + self.SIDE[2] + self.SUF[0])
-        self.middle1_R = cmds.createNode("joint", n=self.JNT[22] + self.SIDE[2] + self.SUF[0])
-        self.middle2_R = cmds.createNode("joint", n=self.JNT[23] + self.SIDE[2] + self.SUF[0])
-        self.middleEnd_R = cmds.createNode("joint", n=self.JNT[24] + self.SIDE[2] + self.SUF[0])
+        self.middle_R = cmds.createNode("joint", n=labels.JNT[21] + labels.SIDE[2] + labels.SUF[0])
+        self.middle1_R = cmds.createNode("joint", n=labels.JNT[22] + labels.SIDE[2] + labels.SUF[0])
+        self.middle2_R = cmds.createNode("joint", n=labels.JNT[23] + labels.SIDE[2] + labels.SUF[0])
+        self.middleEnd_R = cmds.createNode("joint", n=labels.JNT[24] + labels.SIDE[2] + labels.SUF[0])
         
         cmds.xform(self.middle_R, ws=True, t=(-80,147,1))
         cmds.xform(self.middle1_R, ws=True, t=(-85,147,1))
@@ -197,10 +197,10 @@ class ImportHands():
         middle_list.append(self.middleEnd_R)
         
         # Ring Finger
-        self.ring_R = cmds.createNode("joint", n=self.JNT[25] + self.SIDE[2] + self.SUF[0])
-        self.ring1_R = cmds.createNode("joint", n=self.JNT[26] + self.SIDE[2] + self.SUF[0])
-        self.ring2_R = cmds.createNode("joint", n=self.JNT[27] + self.SIDE[2] + self.SUF[0])
-        self.ringEnd_R = cmds.createNode("joint", n=self.JNT[28] + self.SIDE[2] + self.SUF[0])
+        self.ring_R = cmds.createNode("joint", n=labels.JNT[25] + labels.SIDE[2] + labels.SUF[0])
+        self.ring1_R = cmds.createNode("joint", n=labels.JNT[26] + labels.SIDE[2] + labels.SUF[0])
+        self.ring2_R = cmds.createNode("joint", n=labels.JNT[27] + labels.SIDE[2] + labels.SUF[0])
+        self.ringEnd_R = cmds.createNode("joint", n=labels.JNT[28] + labels.SIDE[2] + labels.SUF[0])
         
         cmds.xform(self.ring_R, ws=True, t=(-80,147,-1))
         cmds.xform(self.ring1_R, ws=True, t=(-85,147,-1))
@@ -213,10 +213,10 @@ class ImportHands():
         ring_list.append(self.ringEnd_R)
         
         # Pinky Finger
-        self.pinky_R = cmds.createNode("joint", n=self.JNT[29] + self.SIDE[2] + self.SUF[0])
-        self.pinky1_R = cmds.createNode("joint", n=self.JNT[30] + self.SIDE[2] + self.SUF[0])
-        self.pinky2_R = cmds.createNode("joint", n=self.JNT[31] + self.SIDE[2] + self.SUF[0])
-        self.pinkyEnd_R = cmds.createNode("joint", n=self.JNT[32] + self.SIDE[2] + self.SUF[0])
+        self.pinky_R = cmds.createNode("joint", n=labels.JNT[29] + labels.SIDE[2] + labels.SUF[0])
+        self.pinky1_R = cmds.createNode("joint", n=labels.JNT[30] + labels.SIDE[2] + labels.SUF[0])
+        self.pinky2_R = cmds.createNode("joint", n=labels.JNT[31] + labels.SIDE[2] + labels.SUF[0])
+        self.pinkyEnd_R = cmds.createNode("joint", n=labels.JNT[32] + labels.SIDE[2] + labels.SUF[0])
         
         cmds.xform(self.pinky_R, ws=True, t=(-80,147,-3))
         cmds.xform(self.pinky1_R, ws=True, t=(-85,147,-3))
@@ -229,10 +229,10 @@ class ImportHands():
         pinky_list.append(self.pinkyEnd_R)
         
         # Thumb
-        self.thumb_R = cmds.createNode("joint", n=self.JNT[13] + self.SIDE[2] + self.SUF[0])
-        self.thumb1_R = cmds.createNode("joint", n=self.JNT[14] + self.SIDE[2] + self.SUF[0])
-        self.thumb2_R = cmds.createNode("joint", n=self.JNT[15] + self.SIDE[2] + self.SUF[0])
-        self.thumbEnd_R = cmds.createNode("joint", n=self.JNT[16] + self.SIDE[2] + self.SUF[0])
+        self.thumb_R = cmds.createNode("joint", n=labels.JNT[13] + labels.SIDE[2] + labels.SUF[0])
+        self.thumb1_R = cmds.createNode("joint", n=labels.JNT[14] + labels.SIDE[2] + labels.SUF[0])
+        self.thumb2_R = cmds.createNode("joint", n=labels.JNT[15] + labels.SIDE[2] + labels.SUF[0])
+        self.thumbEnd_R = cmds.createNode("joint", n=labels.JNT[16] + labels.SIDE[2] + labels.SUF[0])
         
         cmds.xform(self.thumb_R, ws=True, t=(-76,145,4))
         cmds.xform(self.thumb1_R, ws=True, t=(-78,145,5))
@@ -250,13 +250,13 @@ class ImportHands():
         tools.create_joint_chain("-X", "-Y", pinky_list)
         tools.create_joint_chain("-X", "-Y", thumb_list)
         
-        cmds.parent(self.index_R, self.middle_R, self.ring_R, self.pinky_R, self.thumb_R, self.wrist_R)
+        cmds.parent(self.index_R, self.middle_R, self.ring_R, self.pinky_R, self.thumb_R, arms.wrist_R)
         
-        self.deformJoint_list.extend(index_list)
-        self.deformJoint_list.extend(middle_list)
-        self.deformJoint_list.extend(ring_list)
-        self.deformJoint_list.extend(pinky_list)
-        self.deformJoint_list.extend(thumb_list)               
+        labels.deformJoint_list.extend(index_list)
+        labels.deformJoint_list.extend(middle_list)
+        labels.deformJoint_list.extend(ring_list)
+        labels.deformJoint_list.extend(pinky_list)
+        labels.deformJoint_list.extend(thumb_list)               
         
     
         

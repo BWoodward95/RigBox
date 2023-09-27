@@ -1,6 +1,6 @@
 import maya.cmds as cmds
 
-from rigbox import labels, spine
+from rigbox import tools, labels, spine
 
 class ImportNeck():
     
@@ -36,6 +36,6 @@ class ImportNeck():
         
         tools.create_joint_chain("X", "Y",  neck_list) # Create chain
         
-        cmds.parent(self.neck, spine.spine2) # Attach to Spine2
+        # cmds.parent(self.neck, spine.spine2) # Attach to Spine2
         
         labels.deformJoint_list.extend(neck_list) # Add to the basket

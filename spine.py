@@ -1,6 +1,6 @@
 import maya.cmds as cmds
 
-from rigbox import labels
+from rigbox import tools, labels, root
 
 class ImportSpine():
     
@@ -15,6 +15,8 @@ class ImportSpine():
         self.spine_pos = (0,107,0)
         self.spine1_pos = (0,120,0)
         self.spine2_pos = (0,132,0)
+        
+        # self.importroot = root.ImportRoot()
         
     def create_spine(self):
         spine_list = [] # Carries around spine joint variables
@@ -35,7 +37,8 @@ class ImportSpine():
         spine_list.append(self.spine2) #               V
         
         tools.create_joint_chain("X", "Y", spine_list) # Create chain
-        
-        cmds.parent(self.hips, self.root) # Attach to Root
+
+        # This bit tries to parent hips_M_jnt to spine2_M_jnt somehow.
+        # cmds.parent(self.hips, self.importroot.root) # Attach to Root
         
         labels.deformJoint_list.extend(spine_list) # Add to the basket

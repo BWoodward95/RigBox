@@ -1,8 +1,8 @@
 import maya.cmds as cmds
 
-from rigbox import labels, spine
+from rigbox import tools, labels, spine
 
-class ImportLeg():
+class ImportLegs():
     
     def __init__(self):
         
@@ -39,11 +39,11 @@ class ImportLeg():
         self.toe_L = cmds.createNode("joint", n=labels.JNT[36] + labels.SIDE[1] + labels.SUF[0])
         self.toeEnd_L = cmds.createNode("joint", n=labels.JNT[37] + labels.SIDE[1] + labels.SUF[0])
     
-        cmds.xform(self.upperLeg_L, ws=True, t=(9,94,0))
-        cmds.xform(self.lowerLeg_L, ws=True, t=(9,49,0))
-        cmds.xform(self.foot_L, ws=True, t=(9,8,0))
-        cmds.xform(self.toe_L, ws=True, t=(9,2,13))
-        cmds.xform(self.toeEnd_L, ws=True, t=(9,2,20))
+        cmds.xform(self.upperLeg_L, ws=True, t=self.upperLeg_L_pos)
+        cmds.xform(self.lowerLeg_L, ws=True, t=self.lowerLeg_L_pos)
+        cmds.xform(self.foot_L, ws=True, t=self.foot_L_pos)
+        cmds.xform(self.toe_L, ws=True, t=self.toe_L_pos)
+        cmds.xform(self.toeEnd_L, ws=True, t=self.toeEnd_L_pos)
         
         leg_list.append(self.upperLeg_L)
         leg_list.append(self.lowerLeg_L)
@@ -53,7 +53,7 @@ class ImportLeg():
         
         tools.create_joint_chain("X", "Z", leg_list)
     
-        cmds.parent(self.upperLeg_L, spine.hips)
+        # cmds.parent(self.upperLeg_L, spine.hips)
                         
         labels.deformJoint_list.extend(leg_list)   
         
@@ -66,11 +66,11 @@ class ImportLeg():
         self.toe_R = cmds.createNode("joint", n=labels.JNT[36] + labels.SIDE[2] + labels.SUF[0])
         self.toeEnd_R = cmds.createNode("joint", n=labels.JNT[37] + labels.SIDE[2] + labels.SUF[0])
     
-        cmds.xform(self.upperLeg_R, ws=True, t=(-9,94,0))
-        cmds.xform(self.lowerLeg_R, ws=True, t=(-9,49,0))
-        cmds.xform(self.foot_R, ws=True, t=(-9,8,0))
-        cmds.xform(self.toe_R, ws=True, t=(-9,2,13))
-        cmds.xform(self.toeEnd_R, ws=True, t=(-9,2,20))
+        cmds.xform(self.upperLeg_R, ws=True, t=self.upperLeg_R_pos)
+        cmds.xform(self.lowerLeg_R, ws=True, t=self.lowerLeg_R_pos)
+        cmds.xform(self.foot_R, ws=True, t=self.foot_R_pos)
+        cmds.xform(self.toe_R, ws=True, t=self.toe_R_pos)
+        cmds.xform(self.toeEnd_R, ws=True, t=self.toeEnd_R_pos)
         
         leg_list.append(self.upperLeg_R)
         leg_list.append(self.lowerLeg_R)
@@ -80,7 +80,7 @@ class ImportLeg():
             
         tools.create_joint_chain("-X", "-Z", leg_list)
     
-        cmds.parent(self.upperLeg_R, spine.hips)
+        # cmds.parent(self.upperLeg_R, spine.hips)
                         
         labels.deformJoint_list.extend(leg_list)          
         
