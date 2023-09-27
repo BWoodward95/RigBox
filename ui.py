@@ -11,7 +11,7 @@ from PySide2 import QtCore, QtGui, QtWidgets
 
 import maya.cmds as cmds
 
-from rigbox import createskeleton
+from rigbox import createskeleton, rollsystem
 
 def getMayaMainWindow():
     return [obj for obj in QtWidgets.QApplication.topLevelWidgets() if obj.objectName() == 'MayaWindow'][0]    
@@ -36,7 +36,8 @@ class RigBox(QtWidgets.QDialog):
         self.setWindowTitle("RigBox v2.0")
         self.setMinimumSize(300, 100)
         
-        self.create_skeleton = createskeleton.CreateBaseSkeleton()
+        self.create_skeleton = createskeleton.main()
+        self.roll_system = rollsystem.main()
         
         self.createWidgets()
         self.createLayout()
@@ -59,23 +60,9 @@ class RigBox(QtWidgets.QDialog):
         main_layout.addLayout(button_layout)
      
     def createConnections(self):
-        self.importSkeleton_btn.clicked.connect(self.import_skeleton)
-        self.setup_deformSystem_btn.clicked.connect(self.create_deform)
+        self.importSkeleton_btn.clicked.connect(self.create_skeleton)
+        self.setup_deformSystem_btn.clicked.connect(self.roll_system)
    
-    def import_skeleton(self):
-        self.create_skeleton.create_root()
-        self.create_skeleton.create_spine()
-        self.create_skeleton.create_neck()
-        self.create_skeleton.create_leftLeg()
-        self.create_skeleton.create_rightLeg()
-        self.create_skeleton.create_leftArm(hand=True)
-        self.create_skeleton.create_rightArm(hand=True)
-        self.create_skeleton.finalize()
-  
-    def create_deform(self):
-        self.create_skeleton.apply_roll_jnts(mirror=True)
-        self.create_skeleton.setup_roll_sys(mirror=True)
-    
     def load_window(self):
         try:
             ui.close()
