@@ -1,6 +1,6 @@
 import maya.cmds as cmds
 
-from rigbox import labels, root, spine, neck, legs, arms, hands
+from rigbox import root, spine, neck, legs, arms, hands
 
 class AssembleSkeleton():
     
@@ -32,25 +32,10 @@ class AssembleSkeleton():
         cmds.parent(self.importarms.clavicle_R, self.importspine.spine2)
         cmds.parent(self.importhands.index_L, self.importhands.middle_L, self.importhands.ring_L, self.importhands.pinky_L, self.importhands.thumb_L, self.importarms.wrist_L)
         cmds.parent(self.importhands.index_R, self.importhands.middle_R, self.importhands.ring_R, self.importhands.pinky_R, self.importhands.thumb_R, self.importarms.wrist_R)
-    
-    def finalize_skeleton(self):
-        pass
-    
-    def deform_set(self):
-        cmds.select(d=True)
-        
-        for each in labels.deformJoint_list:
-            cmds.select(each, add=True)
-            
-        cmds.sets(n="DeformJoints_Set")
-        
-        cmds.select(d=True)
         
     def main(self):
         self.import_skeleton()
         self.assemble_skeleton()
-        self.finalize_skeleton()
-        self.deform_set()
          
 if __name__ == "__main__":
     skeleton = AssembleSkeleton()

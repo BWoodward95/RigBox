@@ -36,8 +36,8 @@ class RigBox(QtWidgets.QDialog):
         self.setWindowTitle("RigBox v2.0")
         self.setMinimumSize(300, 100)
         
-        self.create_skeleton = createskeleton.AssembleSkeleton.main()
-        self.roll_system = rollsystem.RollSystem.main()
+        self.create_skeleton = createskeleton.AssembleSkeleton()
+        self.roll_system = rollsystem.RollSystem()
         
         self.createWidgets()
         self.createLayout()
@@ -60,8 +60,8 @@ class RigBox(QtWidgets.QDialog):
         main_layout.addLayout(button_layout)
      
     def createConnections(self):
-        self.importSkeleton_btn.clicked.connect(self.create_skeleton)
-        self.setup_deformSystem_btn.clicked.connect(self.roll_system)
+        self.importSkeleton_btn.clicked.connect(self.create_skeleton.main)
+        self.setup_deformSystem_btn.clicked.connect(self.roll_system.main)
    
     def load_window(self):
         try:
