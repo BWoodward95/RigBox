@@ -36,8 +36,8 @@ class RigBox(QtWidgets.QDialog):
         self.setWindowTitle("RigBox v2.0")
         self.setMinimumSize(300, 100)
         
-        self.create_skeleton = createskeleton.main()
-        self.roll_system = rollsystem.main()
+        self.create_skeleton = createskeleton.AssembleSkeleton.main()
+        self.roll_system = rollsystem.RollSystem.main()
         
         self.createWidgets()
         self.createLayout()
