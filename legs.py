@@ -18,6 +18,18 @@ class ImportLegs():
         self.toe_R = None
         self.toeEnd_R = None
         
+        self.upperLeg_roll_L = None
+        self.lowerLeg_roll_L = None
+        
+        self.upperLeg_roll_R = None
+        self.lowerLeg_roll_R = None
+        
+        self.upperLeg_roll_L_sys = None
+        self.lowerLeg_roll_L_sys = None
+        
+        self.upperLeg_roll_R_sys = None
+        self.lowerLeg_roll_R_sys = None
+        
         # Initialize joint positions
         self.upperLeg_L_pos = (9,94,0)
         self.lowerLeg_L_pos = (9,49,0)
@@ -54,7 +66,7 @@ class ImportLegs():
         
         tools.create_joint_chain("X", "Z", leg_list) # Create chain
                         
-        labels.deformJoint_list.extend(leg_list) # Add to selection set   
+        labels.deformJoint_list.extend(leg_list) # Add to selection set
         
     def create_rightLeg(self):
         leg_list = []
@@ -81,4 +93,28 @@ class ImportLegs():
                         
         labels.deformJoint_list.extend(leg_list)          
         
-                
+    def apply_roll_jnts(self):
+        self.upperLeg_roll_L = tools.create_roll_jnt(f"{labels.JNT[33]}_roll{labels.SIDE[1]}{labels.SUF[0]}", self.upperLeg_L, self.lowerLeg_L)
+        labels.deformJoint_list.append(self.upperLeg_roll_L)
+             
+        self.lowerLeg_roll_L = tools.create_roll_jnt(f"{labels.JNT[34]}_roll{labels.SIDE[1]}{labels.SUF[0]}", self.lowerLeg_L, self.foot_L)
+        labels.deformJoint_list.append(self.lowerLeg_roll_L)
+        
+        self.upperLeg_roll_R = tools.create_roll_jnt(f"{labels.JNT[33]}_roll{labels.SIDE[2]}{labels.SUF[0]}", self.upperLeg_R, self.lowerLeg_R)
+        labels.deformJoint_list.append(self.upperLeg_roll_R)
+             
+        self.lowerLeg_roll_R = tools.create_roll_jnt(f"{labels.JNT[34]}_roll{labels.SIDE[2]}{labels.SUF[0]}", self.lowerLeg_R, self.foot_R)
+        labels.deformJoint_list.append(self.lowerLeg_roll_R)
+            
+    def setup_roll_sys(self):    
+        self.upperLeg_roll_L_sys = tools.create_roll_sys(f"{labels.JNT[33]}{labels.SIDE[1]}{labels.SUF[1]}", self.upperLeg_L, self.upperLeg_roll_L, 0.5)
+        labels.node_list.append(self.upperLeg_roll_L_sys)
+        
+        self.lowerLeg_roll_L_sys = tools.create_roll_sys(f"{labels.JNT[34]}{labels.SIDE[1]}{labels.SUF[1]}", self.lowerLeg_L, self.lowerLeg_roll_L, 0.5)      
+        labels.node_list.append(self.lowerLeg_roll_L_sys)
+        
+        self.upperLeg_roll_R_sys = tools.create_roll_sys(f"{labels.JNT[33]}{labels.SIDE[2]}{labels.SUF[1]}", self.upperLeg_R, self.upperLeg_roll_R, 0.5)
+        labels.node_list.append(self.upperLeg_roll_R_sys)
+        
+        self.lowerLeg_roll_R_sys = tools.create_roll_sys(f"{labels.JNT[34]}{labels.SIDE[2]}{labels.SUF[1]}", self.lowerLeg_R, self.lowerLeg_roll_R, 0.5)      
+        labels.node_list.append(self.lowerLeg_roll_R_sys)          

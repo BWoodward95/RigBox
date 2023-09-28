@@ -73,33 +73,51 @@ def create_joint_chain(primaryAxis, upAxis, jointList):
         cmds.delete(aim_joint) # Delete aim constraint
         cmds.makeIdentity(apply=True, r=True) # Zero joint rotations
         cmds.parent(jointList[i+1], jointList[i]) # Make parent relationship
-        
-    def pole_vector(startJoint, midJoint, endJoint, name, distance):
-        start = cmds.xform(start, q=True, ws=True, t=True)
-        mid = cmds.xform(mid, q=True, ws=True, t=True)
-        end = cmds.xform(end, q=True, ws=True, t=True)
 
-        startV = om.MVector(start[0], start[1], start[2])
-        midV = om.MVector(mid[0], mid[1], mid[2])
-        endV = om.MVector(end[0], end[1], end[2])
+def create_roll_sys(name, inJoint, outJoint, factor):    
+    sys_node = cmds.createNode("multiplyDivide", n=name)
+    cmds.connectAttr(f"{inJoint}.ry", f"{sys_node}.input1X")
+    cmds.connectAttr(f"{sys_node}.outputX", f"{outJoint}.ry")
+    cmds.setAttr(f"{sys_node}.input2X", factor)
+    
+    return sys_node
+    
+def create_roll_jnt(name, first, last):
+    cmds.select(first)
+    roll_jnt = cmds.joint(n=name)
 
-        startEnd = endV - startV
-        startMid = midV - startV
+    roll_jnt_pos = average_location("X", last)
+                    
+    cmds.xform(roll_jnt, t=roll_jnt_pos)
+    
+    return roll_jnt           
+    
+def pole_vector(startJoint, midJoint, endJoint, name, distance):
+    start = cmds.xform(start, q=True, ws=True, t=True)
+    mid = cmds.xform(mid, q=True, ws=True, t=True)
+    end = cmds.xform(end, q=True, ws=True, t=True)
 
-        dotP = startMid * startEnd
+    startV = om.MVector(start[0], start[1], start[2])
+    midV = om.MVector(mid[0], mid[1], mid[2])
+    endV = om.MVector(end[0], end[1], end[2])
 
-        proj = float(dotP) / float(startEnd.length())
+    startEnd = endV - startV
+    startMid = midV - startV
 
-        startEndN = startEnd.normal()
+    dotP = startMid * startEnd
 
-        projV = startEnd * proj
+    proj = float(dotP) / float(startEnd.length())
 
-        arrowV = startMid - projV
-        arrowV *= 0
+    startEndN = startEnd.normal()
 
-        finalV = arrowV + midV
+    projV = startEnd * proj
 
-        loc = cmds.spaceLocator()[0]
+    arrowV = startMid - projV
+    arrowV *= 0
 
-        cmds.xform(loc, ws=True, t=(finalV.x, finalV.y, finalV.z))
-        cmds.rename(loc, f"{name}_poleVector1")    
+    finalV = arrowV + midV
+
+    loc = cmds.spaceLocator()[0]
+
+    cmds.xform(loc, ws=True, t=(finalV.x, finalV.y, finalV.z))
+    cmds.rename(loc, f"{name}_poleVector1")    

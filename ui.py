@@ -11,7 +11,7 @@ from PySide2 import QtCore, QtGui, QtWidgets
 
 import maya.cmds as cmds
 
-from rigbox import createskeleton, rollsystem
+from rigbox import createskeleton
 
 def getMayaMainWindow():
     return [obj for obj in QtWidgets.QApplication.topLevelWidgets() if obj.objectName() == 'MayaWindow'][0]    
@@ -37,7 +37,6 @@ class RigBox(QtWidgets.QDialog):
         self.setMinimumSize(300, 100)
         
         self.create_skeleton = createskeleton.AssembleSkeleton()
-        self.roll_system = rollsystem.RollSystem()
         
         self.createWidgets()
         self.createLayout()
@@ -60,8 +59,8 @@ class RigBox(QtWidgets.QDialog):
         main_layout.addLayout(button_layout)
      
     def createConnections(self):
-        self.importSkeleton_btn.clicked.connect(self.create_skeleton.main)
-        self.setup_deformSystem_btn.clicked.connect(self.roll_system.main)
+        self.importSkeleton_btn.clicked.connect(self.create_skeleton.base_skeleton_main)
+        self.setup_deformSystem_btn.clicked.connect(self.create_skeleton.roll_system_main)
    
     def load_window(self):
         try:

@@ -16,6 +16,18 @@ class ImportArms():
         self.lowerArm_R = None
         self.wrist_R = None
         
+        self.upperArm_roll_L = None
+        self.lowerArm_roll_L = None
+        
+        self.upperArm_roll_R = None
+        self.lowerArm_roll_R = None
+        
+        self.upperArm_roll_L_sys = None
+        self.lowerArm_roll_L_sys = None
+        
+        self.upperArm_roll_R_sys = None
+        self.lowerArm_roll_R_sys = None        
+        
         # Initialize joint positions
         self.clavicle_L_pos = (7,147,0)
         self.upperArm_L_pos = (17,147,0)
@@ -49,11 +61,6 @@ class ImportArms():
         
         lowerArm_rot = tools.query_rotation(self.lowerArm_L)
         cmds.xform(self.wrist_L, ro=lowerArm_rot)        
-        
-        # if hand:
-        #     self.create_leftHand()
-               
-        # cmds.parent(self.clavicle_L, self.spine2)
     
         labels.deformJoint_list.extend(arm_list)
         
@@ -80,9 +87,30 @@ class ImportArms():
         lowerArm_rot = tools.query_rotation(self.lowerArm_R)
         cmds.xform(self.wrist_R, ro=lowerArm_rot)        
         
-        # if hand:
-        #     self.create_rightHand()
-               
-        # cmds.parent(self.clavicle_R, self.spine2)
-    
         labels.deformJoint_list.extend(arm_list)
+
+    def apply_roll_jnts(self):    
+        self.upperArm_roll_L = tools.create_roll_jnt(f"{labels.JNT[10]}_roll{labels.SIDE[1]}{labels.SUF[0]}", self.upperArm_L, self.lowerArm_L)
+        labels.deformJoint_list.append(self.upperArm_roll_L)
+       
+        self.lowerArm_roll_L = tools.create_roll_jnt(f"{labels.JNT[11]}_roll{labels.SIDE[1]}{labels.SUF[0]}", self.lowerArm_L, self.wrist_L)           
+        labels.deformJoint_list.append(self.lowerArm_roll_L)
+
+        self.upperArm_roll_R = tools.create_roll_jnt(f"{labels.JNT[10]}_roll{labels.SIDE[2]}{labels.SUF[0]}", self.upperArm_R, self.lowerArm_R)
+        labels.deformJoint_list.append(self.upperArm_roll_R)
+       
+        self.lowerArm_roll_R = tools.create_roll_jnt(f"{labels.JNT[11]}_roll{labels.SIDE[2]}{labels.SUF[0]}", self.lowerArm_R, self.wrist_R)           
+        labels.deformJoint_list.append(self.lowerArm_roll_R)
+        
+    def setup_roll_sys(self):
+        self.upperArm_roll_L_sys = tools.create_roll_sys(f"{labels.JNT[10]}{labels.SIDE[1]}{labels.SUF[1]}", self.upperArm_L, self.upperArm_roll_L, -0.5)
+        labels.node_list.append(self.upperArm_roll_L_sys)
+    
+        self.lowerArm_roll_L_sys = tools.create_roll_sys(f"{labels.JNT[11]}{labels.SIDE[1]}{labels.SUF[1]}", self.lowerArm_L, self.lowerArm_roll_L, 0.5)
+        labels.node_list.append(self.lowerArm_roll_L_sys)
+        
+        self.upperArm_roll_R_sys = tools.create_roll_sys(f"{labels.JNT[10]}{labels.SIDE[2]}{labels.SUF[1]}", self.upperArm_R, self.upperArm_roll_R, -0.5)
+        labels.node_list.append(self.upperArm_roll_R_sys)
+    
+        self.lowerArm_roll_R_sys = tools.create_roll_sys(f"{labels.JNT[11]}{labels.SIDE[2]}{labels.SUF[1]}", self.lowerArm_R, self.lowerArm_roll_R, 0.5)
+        labels.node_list.append(self.lowerArm_roll_R_sys)        
