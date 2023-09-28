@@ -65,6 +65,9 @@ class ImportLegs():
         leg_list.append(self.toeEnd_L)   #               V
         
         tools.create_joint_chain("X", "Z", leg_list) # Create chain
+        
+        toe_L_rot = tools.query_rotation(self.toe_L)
+        cmds.xform(self.toeEnd_L, ro=toe_L_rot)
                         
         labels.deformJoint_list.extend(leg_list) # Add to selection set
         
@@ -90,6 +93,9 @@ class ImportLegs():
         leg_list.append(self.toeEnd_R)
             
         tools.create_joint_chain("-X", "-Z", leg_list)
+
+        toe_R_rot = tools.query_rotation(self.toe_R)
+        cmds.xform(self.toeEnd_R, ro=toe_R_rot)
                         
         labels.deformJoint_list.extend(leg_list)          
         

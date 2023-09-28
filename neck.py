@@ -37,4 +37,7 @@ class ImportNeck():
         
         tools.create_joint_chain("X", "Y",  neck_list) # Create chain
         
+        head_rot = tools.query_rotation(self.head)
+        cmds.xform(self.headEnd, ro=head_rot)
+        
         labels.deformJoint_list.extend(neck_list) # Add to selection set

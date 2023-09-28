@@ -37,4 +37,7 @@ class ImportSpine():
         
         tools.create_joint_chain("X", "Y", spine_list) # Create chain
         
+        spine1_rot = tools.query_rotation(self.spine1)
+        cmds.xform(self.spine2, ro=spine1_rot)
+        
         labels.deformJoint_list.extend(spine_list) # Add to selection set
