@@ -130,6 +130,9 @@ class ImportHands():
         index_list.append(self.index2_L)
         index_list.append(self.indexEnd_L)
         
+        index2_L_rot = tools.query_rotation(self.index2_L)
+        cmds.xform(self.indexEnd_L, ro=index2_L_rot)
+        
         # Middle Finger
         self.middle_L = cmds.createNode("joint", n=labels.JNT[21] + labels.SIDE[1] + labels.SUF[0])
         self.middle1_L = cmds.createNode("joint", n=labels.JNT[22] + labels.SIDE[1] + labels.SUF[0])
@@ -145,6 +148,9 @@ class ImportHands():
         middle_list.append(self.middle1_L)
         middle_list.append(self.middle2_L)
         middle_list.append(self.middleEnd_L)
+
+        middle2_L_rot = tools.query_rotation(self.middle2_L)
+        cmds.xform(self.middleEnd_L, ro=middle2_L_rot)
         
         # Ring Finger
         self.ring_L = cmds.createNode("joint", n=labels.JNT[25] + labels.SIDE[1] + labels.SUF[0])
@@ -161,6 +167,9 @@ class ImportHands():
         ring_list.append(self.ring1_L)
         ring_list.append(self.ring2_L)
         ring_list.append(self.ringEnd_L)
+
+        ring2_L_rot = tools.query_rotation(self.ring2_L)
+        cmds.xform(self.ringEnd_L, ro=ring2_L_rot)
         
         # Pinky Finger
         self.pinky_L = cmds.createNode("joint", n=labels.JNT[29] + labels.SIDE[1] + labels.SUF[0])
@@ -177,6 +186,9 @@ class ImportHands():
         pinky_list.append(self.pinky1_L)
         pinky_list.append(self.pinky2_L)
         pinky_list.append(self.pinkyEnd_L)
+
+        pinky2_L_rot = tools.query_rotation(self.pinky2_L)
+        cmds.xform(self.pinkyEnd_L, ro=pinky2_L_rot)
         
         # Thumb
         self.thumb_L = cmds.createNode("joint", n=labels.JNT[13] + labels.SIDE[1] + labels.SUF[0])
@@ -193,6 +205,9 @@ class ImportHands():
         thumb_list.append(self.thumb1_L)
         thumb_list.append(self.thumb2_L)
         thumb_list.append(self.thumbEnd_L)
+        
+        thumb2_L_rot = tools.query_rotation(self.thumb2_L)
+        cmds.xform(self.thumbEnd_L, ro=thumb2_L_rot)        
         
         tools.create_joint_chain("X", "Y", index_list)
         tools.create_joint_chain("X", "Y", middle_list)
@@ -228,6 +243,9 @@ class ImportHands():
         index_list.append(self.index1_R)
         index_list.append(self.index2_R)
         index_list.append(self.indexEnd_R)
+
+        index2_R_rot = tools.query_rotation(self.index2_R)
+        cmds.xform(self.indexEnd_R, ro=index2_R_rot)
         
         # Middle Finger
         self.middle_R = cmds.createNode("joint", n=labels.JNT[21] + labels.SIDE[2] + labels.SUF[0])
@@ -244,6 +262,9 @@ class ImportHands():
         middle_list.append(self.middle1_R)
         middle_list.append(self.middle2_R)
         middle_list.append(self.middleEnd_R)
+
+        middle2_R_rot = tools.query_rotation(self.middle2_R)
+        cmds.xform(self.middleEnd_R, ro=middle2_R_rot)
         
         # Ring Finger
         self.ring_R = cmds.createNode("joint", n=labels.JNT[25] + labels.SIDE[2] + labels.SUF[0])
@@ -260,6 +281,9 @@ class ImportHands():
         ring_list.append(self.ring1_R)
         ring_list.append(self.ring2_R)
         ring_list.append(self.ringEnd_R)
+
+        ring2_R_rot = tools.query_rotation(self.ring2_R)
+        cmds.xform(self.ringEnd_R, ro=ring2_R_rot)
         
         # Pinky Finger
         self.pinky_R = cmds.createNode("joint", n=labels.JNT[29] + labels.SIDE[2] + labels.SUF[0])
@@ -276,6 +300,9 @@ class ImportHands():
         pinky_list.append(self.pinky1_R)
         pinky_list.append(self.pinky2_R)
         pinky_list.append(self.pinkyEnd_R)
+
+        pinky2_R_rot = tools.query_rotation(self.pinky2_R)
+        cmds.xform(self.pinkyEnd_R, ro=pinky2_R_rot)
         
         # Thumb
         self.thumb_R = cmds.createNode("joint", n=labels.JNT[13] + labels.SIDE[2] + labels.SUF[0])
@@ -292,6 +319,9 @@ class ImportHands():
         thumb_list.append(self.thumb1_R)
         thumb_list.append(self.thumb2_R)
         thumb_list.append(self.thumbEnd_R)
+        
+        thumb2_R_rot = tools.query_rotation(self.thumb2_R)
+        cmds.xform(self.thumbEnd_R, ro=thumb2_R_rot)        
         
         tools.create_joint_chain("-X", "-Y", index_list)
         tools.create_joint_chain("-X", "-Y", middle_list)

@@ -74,23 +74,46 @@ def create_joint_chain(primaryAxis, upAxis, jointList):
         cmds.makeIdentity(apply=True, r=True) # Zero joint rotations
         cmds.parent(jointList[i+1], jointList[i]) # Make parent relationship
 
-def create_roll_sys(name, inJoint, outJoint, factor):    
+def create_roll_sys(name, inJoint, outJoint, primaryAxis, factor):    
     sys_node = cmds.createNode("multiplyDivide", n=name)
-    cmds.connectAttr(f"{inJoint}.ry", f"{sys_node}.input1X")
-    cmds.connectAttr(f"{sys_node}.outputX", f"{outJoint}.ry")
+    
+    if primaryAxis == "X":
+        cmds.connectAttr(f"{inJoint}.rx", f"{sys_node}.input1X")
+        cmds.connectAttr(f"{sys_node}.outputX", f"{outJoint}.rx")
+
+    if primaryAxis == "Y":
+        cmds.connectAttr(f"{inJoint}.ry", f"{sys_node}.input1X")
+        cmds.connectAttr(f"{sys_node}.outputX", f"{outJoint}.ry")
+
+    if primaryAxis == "Z":
+        cmds.connectAttr(f"{inJoint}.rz", f"{sys_node}.input1X")
+        cmds.connectAttr(f"{sys_node}.outputX", f"{outJoint}.rz")            
+        
     cmds.setAttr(f"{sys_node}.input2X", factor)
     
     return sys_node
     
-def create_roll_jnt(name, first, last):
+def create_roll_jnt(name, first, last=None, average=True):
     cmds.select(first)
     roll_jnt = cmds.joint(n=name)
-
-    roll_jnt_pos = average_location("X", last)
+    
+    if average:
+        roll_jnt_pos = average_location("X", last)
+    else:
+        roll_jnt_pos = (0,0,0)
                     
     cmds.xform(roll_jnt, t=roll_jnt_pos)
     
     return roll_jnt           
+
+def single_chain_ik(name, start, end, parent=None):
+    ik_effector = cmds.ikHandle(n=name, sj=start, ee=end, sol="ikSCsolver")
+    
+    if parent:
+        cmds.parent(ik_effector, parent)
+    
+    print(ik_effector)    
+    return ik_effector
     
 def pole_vector(startJoint, midJoint, endJoint, name, distance):
     start = cmds.xform(start, q=True, ws=True, t=True)

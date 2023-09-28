@@ -13,7 +13,7 @@ JNT = [
 ]
 
 # Suffix Labels
-SUF = ["_jnt", "_sys", "_ctrl"] # [0], [1], [2]
+SUF = ["_jnt", "_sys", "_ctrl", "_poleVector"] # [0], [1], [2], [3]
 
 # Orientation Labels
 SIDE = ["_M", "_L", "_R"] # [0], [1], [2]

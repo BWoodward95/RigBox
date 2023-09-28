@@ -57,12 +57,12 @@ class AssembleSkeleton():
         self.import_skeleton()
         self.assemble_skeleton()
         self.finalize_skeleton()
-        self.deform_set()
+        # self.deform_set()
         
     def roll_system_main(self):
         self.leg_roll()
         self.arm_roll()
-        self.deform_set()           
+        # self.deform_set()           
          
 if __name__ == "__main__":
     skeleton = AssembleSkeleton()
